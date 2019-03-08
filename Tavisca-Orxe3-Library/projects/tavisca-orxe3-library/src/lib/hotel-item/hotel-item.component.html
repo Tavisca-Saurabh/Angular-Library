@@ -1,0 +1,47 @@
+<div class="grid">
+  <div class="grid grid__col-md-9 grid__col-xs-12 grid--align-start hotel-results-detail-section">
+    <div class="grid__col-xs-3 padding-top-0 padding-left-0 ">
+      <div class="display-inline-block show-hotellist-gallery">
+        <div class="hotel-image-container js-lang js-sas">
+          <img class="result-list-image js-hotellazyload js-show-hotellist-gallery"
+            src="https://d3mj096p5q0e20.cloudfront.net/fi/HCM/1128519/460434_73_z.jpg" alt="hotelDetails.name">
+        </div>
+      </div>
+    </div>
+    <div class="grid__col-xs-9 padding-top-0">
+      <div class="block padding-bottom-0 padding-right-0 hotel-info-col">
+        <dl class="hotel-results-hotel-info">
+          <dd>
+            <a href="#Detail/{{hotelDetails.id}}"
+              class="hotel-name js-sas hotel-name-link">{{hotelDetails.name}}</a>
+          </dd>
+          <dd>{{hotelDetails.content.rating}} Rating</dd>
+        </dl>
+
+        <div class="hotel-result-distance-address-info ">
+          <dl class="show-flex-more-than-md grid grid--align-center">
+            <dd class="address-line">{{hotelDetails.content.contact.address.line1}} , </dd>
+            <dd class="address-line">{{hotelDetails.content.contact.address.city.name}}</dd>
+          </dl>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="grid grid--align-center grid__col-md-3 grid__col-xs-12 hotel-result-pricing-section-container taf-breakout">
+    <div class="hotel-result-pricing-section"></div>
+    <dl>
+      <dd class="unit-price">
+        <span class="payment-results-unit">
+          <span class="unit-label">from</span>
+
+          <span class="unit-cash">
+            <span class="cash-value">${{hotelDetails.displayFare.totalFare/2}}</span>
+            <span class="cash-label">/night</span>
+          </span>
+        </span>
+      </dd>
+    </dl>
+  </div>
+</div>
