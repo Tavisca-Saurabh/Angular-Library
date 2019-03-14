@@ -12,5 +12,4 @@ export class HotelItemComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
