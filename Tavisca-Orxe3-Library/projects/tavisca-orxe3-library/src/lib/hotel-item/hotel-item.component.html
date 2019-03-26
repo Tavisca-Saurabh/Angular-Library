@@ -4,7 +4,7 @@
       <div class="display-inline-block show-hotellist-gallery">
         <div class="hotel-image-container js-lang js-sas">
           <img class="result-list-image js-hotellazyload js-show-hotellist-gallery"
-            src="https://d3mj096p5q0e20.cloudfront.net/fi/HCM/1128519/460434_73_z.jpg" alt="hotelDetails.name">
+          src="{{hotelDetails.content.thumbnails[0].url}}" alt="hotelDetails.name">
         </div>
       </div>
     </div>
@@ -13,7 +13,7 @@
         <dl class="hotel-results-hotel-info">
           <dd>
             <a href="#Detail/{{hotelDetails.id}}"
-              class="hotel-name js-sas hotel-name-link">{{hotelDetails.name}}</a>
+              class="hotel-name js-sas hotel-name-link" (click)="onHotelClicked()">{{hotelDetails.name}}</a>
           </dd>
           <dd>{{hotelDetails.content.rating}} Rating</dd>
         </dl>
