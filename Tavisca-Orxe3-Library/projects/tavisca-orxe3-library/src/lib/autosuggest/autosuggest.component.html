@@ -1,0 +1,40 @@
+<div class="home-page-autosuggest">
+  <div class='search-container' (window:resize)="onResize($event)">
+    <input type="text" class="autosuggest-input" cdkOverlayOrigin #trigger="cdkOverlayOrigin" [(ngModel)]="searchString"
+      (keyup)="initiateSearch($event);" (keyup.enter)="config.isOpened != config.isOpened" [placeholder]="config.placeholder">
+  </div>
+  <ng-template #debugRef="cdkConnectedOverlay" cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger"
+    [cdkConnectedOverlayOpen]="config.isOpened" [cdkConnectedOverlayScrollStrategy]="scrollStrategy">
+    <div class="auto-suggest-picker" role="dialog">
+      <div class="auto-suggest-items" role="listbox" tabindex="0" cdkTrapFocus cdkFocusAutoCapture>
+        <!-- <div *ngFor="let option of structuredOptionsForAutosuggest; let i=index" >
+          <div  #optionList class="option auto-suggest-option" (click)="selectedOption(option.parent)" [ngClass]="focusedIndex === (i + 1) ? 'focused-item': ''">
+            <i *ngIf="option.parent.Type === 0" class="fa fa-hospital-o"></i>
+            <i *ngIf="option.parent.Type === 1" class="fa fa-plane"></i>
+            {{option.parent.CityName}}<span *ngIf="option.parent.StateCode">, {{option.parent.StateCode}}</span>, {{option.parent.CountryCode}} - <span *ngIf="option.parent.Code">({{option.parent.Code}})</span>  {{option.parent.Name}}
+          </div>
+          <div *ngIf="option.children && option.children.length > 0"  class="auto-suggest-child-option child-option-{{i}}">
+              <div *ngFor="let child of option.children; let childIndex = index" [ngClass]="focusedIndex === (i+1+childIndex+1) ? 'focused-item': ''" class="option child child-node-{{i}} child-node-{{i}}-{{childIndex}}" (click)="selectedOption(child)">
+                <i class="fa fa-level-down child-node-icon"></i> <i class="fa fa-plane"></i>
+                {{child.CityName}} <span *ngIf="child.StateCode">, {{child.StateCode}}</span>, {{child.CountryCode}} -
+                ({{child.Code}}) {{child.Name}}
+              </div>
+            </div>
+        </div> -->
+
+      <div *ngFor="let option of sortedAutosuggestList; let i=index">
+        <div #optionList class="option auto-suggest-option" (click)="selectedOption(option)"
+          [ngClass]="[option.subClass ? 'sub-span': '']"
+          [ngStyle]="focusedIndex === i ? config.style.activeItem: ''">
+          <i *ngIf="option.Type === 0" class="fa fa-hospital-o"></i>
+          <i *ngIf="option.Type === 1 && !option.subClass" class="fa fa-plane"></i>
+          <i *ngIf="option.Type === 1 && option.subClass" class="fa fa-level-down"></i>
+          {{option.CityName}}<span *ngIf="option.StateCode">, {{option.StateCode}}</span>,
+          {{option.CountryCode}} - <span *ngIf="option.Code">({{option.Code}})</span>
+          {{option.Name}}
+        </div>
+      </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

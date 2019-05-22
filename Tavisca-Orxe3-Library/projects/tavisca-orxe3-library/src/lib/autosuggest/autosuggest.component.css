@@ -1,0 +1,51 @@
+.home-page-autosuggest .autosuggest-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.sub-span {
+  padding-left: 32px !important;
+}
+/* .focused-item {
+  background: #0693c1;
+  color: #ffffff;
+} */
+
+.auto-suggest-items {
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+.option {
+  padding: 4px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.option:hover {
+  background: #0693c1;
+  color: #ffffff;
+}
+
+/* .option:hover .child-node-icon {
+  background: #0693c1;
+  color: #ffffff;
+} */
+
+.child {
+  padding: 0 0 0 26px;
+}
+
+.option .fa {
+  padding: 0 8px 0 0;
+}
+
+.child-node-icon {
+  color: darkgrey;
+}
+/*
+.child-node-icon:hover {
+  color: #ffffff;
+} */
