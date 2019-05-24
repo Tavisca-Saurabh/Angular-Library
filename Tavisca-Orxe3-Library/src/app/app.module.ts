@@ -1,3 +1,4 @@
+import { MatInputModule, MatIconModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -14,7 +15,9 @@ import { TaviscaOrxe3LibraryModule } from '../../projects/tavisca-orxe3-library/
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    TaviscaOrxe3LibraryModule
+    TaviscaOrxe3LibraryModule,
+    MatInputModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

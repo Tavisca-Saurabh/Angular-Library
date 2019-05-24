@@ -1,4 +1,4 @@
-export const LIST = [
+export const AUTOSUGGEST_MOCK_LIST = [
       {
         "AdditionalInfo": [
           {

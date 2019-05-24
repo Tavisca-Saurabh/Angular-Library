@@ -7,6 +7,8 @@
     [cdkConnectedOverlayOpen]="config.isOpened" [cdkConnectedOverlayScrollStrategy]="scrollStrategy">
     <div class="auto-suggest-picker" role="dialog">
       <div class="auto-suggest-items" role="listbox" tabindex="0" cdkTrapFocus cdkFocusAutoCapture>
+        <!-- for now keeping it for reference -->
+
         <!-- <div *ngFor="let option of structuredOptionsForAutosuggest; let i=index" >
           <div  #optionList class="option auto-suggest-option" (click)="selectedOption(option.parent)" [ngClass]="focusedIndex === (i + 1) ? 'focused-item': ''">
             <i *ngIf="option.parent.Type === 0" class="fa fa-hospital-o"></i>
@@ -21,19 +23,19 @@
               </div>
             </div>
         </div> -->
-
-      <div *ngFor="let option of sortedAutosuggestList; let i=index">
-        <div #optionList class="option auto-suggest-option" (click)="selectedOption(option)"
-          [ngClass]="[option.subClass ? 'sub-span': '']"
-          [ngStyle]="focusedIndex === i ? config.style.activeItem: ''">
-          <i *ngIf="option.Type === 0" class="fa fa-hospital-o"></i>
-          <i *ngIf="option.Type === 1 && !option.subClass" class="fa fa-plane"></i>
-          <i *ngIf="option.Type === 1 && option.subClass" class="fa fa-level-down"></i>
-          {{option.CityName}}<span *ngIf="option.StateCode">, {{option.StateCode}}</span>,
-          {{option.CountryCode}} - <span *ngIf="option.Code">({{option.Code}})</span>
-          {{option.Name}}
-        </div>
-      </div>
+        <ul>
+          <li *ngFor="let option of sortedAutosuggestList; let i=index" (mouseover)="hoverIn(i)">
+            <div #optionList class="option auto-suggest-option" (click)="selectedOption(option)" [ngClass]="[option.subClass ? 'sub-span': '']"
+              [ngStyle]="focusedIndex === i ? config.styles.activeItem: ''">
+                <i *ngIf="option.Type === 0" class="fa fa-hospital-o"></i>
+                <i *ngIf="option.Type === 1 && !option.subClass" class="fa fa-plane"></i>
+                <i *ngIf="option.Type === 1 && option.subClass" class="fa fa-level-down"></i>
+                {{option.CityName}}<span *ngIf="option.StateCode">, {{option.StateCode}}</span>,
+                {{option.CountryCode}} - <span *ngIf="option.Code">({{option.Code}})</span>
+                {{option.Name}}
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </ng-template>

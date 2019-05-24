@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./tavisca-button.component.css']
 })
 export class TaviscaButtonComponent implements OnInit {
-  @Input() color: string = "";
+  @Input() color = '';
   @Input() Disabled: boolean;
   constructor() {
    }

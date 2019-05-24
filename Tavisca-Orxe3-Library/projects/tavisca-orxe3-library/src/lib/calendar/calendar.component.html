@@ -1,0 +1,71 @@
+<div [@openClose] class="calendar-wrapper">
+
+  <div class="top-row" *ngIf="calendarConfig.isHandset">
+    <span class="back-btn" (click)="closeDatePopover()">
+      <i class="fa fa-arrow-left"></i> Select Dates
+    </span>
+    <span>
+      <span *ngIf="calendarConfig.selectionStartDate && calendarConfig.selectionEndDate" class="clear-selection" (click)="resetSelectedDates()">
+        CLEAR
+      </span>
+      <span class="done-btn" (click)="onDoneBtn()">DONE</span>
+    </span>
+
+  </div>
+
+  <div class="selected-dates-container" *ngIf="calendarConfig.isHandset && !calendarConfig.isHistoricalDatePicker">
+    <div class="date-section">
+      <span>Check In</span>
+      <p>{{calendarConfig.selectionStartDate ? (calendarConfig.selectionStartDate.date | date : 'dd MMM yyyy') : '--'}}</p>
+    </div>
+    <div class="date-section">
+      <span>Check Out</span>
+      <p>{{calendarConfig.selectionEndDate ? (calendarConfig.selectionEndDate.date | date : 'dd MMM yyyy') : '--'}}</p>
+    </div>
+  </div>
+
+  <div class="year-picker" *ngIf="calendarConfig.isHistoricalDatePicker">
+    <select (change)="changeHistoricalYear($event)">
+      <option value="">Select Year</option>
+      <option *ngFor="let year of historicalYears.range" [value]="historicalYears.min + year">{{historicalYears.min + year}}</option>
+    </select>
+  </div>
+
+  <div class="calendar" [ngClass]="{'isHandset': calendarConfig.isHandset}">
+
+    <div class="month-container" *ngFor="let key of calendarKeys; let first = first; let last = last">
+
+      <div class="month-header">
+        <!-- TODO - Change icons -->
+        <span class="month-toggle-icon" [ngClass]="{'is-icon-disabled': isLeftMonthToggleDisabled, 'isMobile': calendarConfig.isHandset}"
+          *ngIf="first" (click)="showPrevMonth()"><i class="fa fa-caret-left"></i></span>
+        <span class="month-name">{{config[key].monthName}} {{config[key].year}}</span>
+        <span class="month-toggle-icon" [ngClass]="{'is-icon-disabled': isRightMonthToggleDisabled, 'isMobile': calendarConfig.isHandset}"
+          *ngIf="(last && !calendarConfig.isHandset) || (first && calendarConfig.isHandset)" (click)="showNextMonth()"><i
+            class="fa fa-caret-right"></i></span>
+      </div>
+
+      <!-- Day Names -->
+      <div class="day-name-container">
+        <ul class="day-names">
+          <li class="day-name" *ngFor="let dayName of dayNames; let i = index" [ngClass]="{'weekend': i === 5 || i === 6}">{{dayName}}</li>
+        </ul>
+      </div>
+
+      <!-- Dates -->
+      <div class="date-container">
+        <ul class="dates">
+          <li class="date" *ngFor="let date of calendar[key]" (mouseover)="hoverIn(date)" [ngClass]="{
+            'weekend': date.isWeekend,
+            'invalid-date': date.isInvalid,
+            'is-today': date.isToday,
+            'is-before-today': calendarConfig.isHistoricalDatePicker ? false : (date.isBeforeToday  || date.isDisabled),
+            'is-selected': date.isSelected,
+            'is-between-range': date.isDateInBetween}" (click)="onSelectDate(date)">{{date.value}}</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</div>

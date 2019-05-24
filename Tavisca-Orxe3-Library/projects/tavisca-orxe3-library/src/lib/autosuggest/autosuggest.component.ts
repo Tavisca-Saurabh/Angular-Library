@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostListener, ViewChild, ElementRef } from '@angular/core';
-import { Options } from 'selenium-webdriver';
+import * as _ from 'underscore';
 import {
   CdkOverlayOrigin,
   ScrollStrategy,
@@ -15,15 +15,14 @@ import {
 export class AutosuggestComponent implements OnInit {
   @Input() set options(data: any) {
     // this.setOptions(data);
-    this.list = data;
+    this.autosuggestList = data;
   }
   constructor(private readonly sso: ScrollStrategyOptions) {
     this.scrollStrategy = this.sso.block();
   }
-  childFocused: any;
-  hoverActive = false;
-  list: any;
-  focusedIndex = 1;
+
+  autosuggestList: any;
+  focusedIndex = 0;
   @Output() selected = new EventEmitter();
   @Input() config;
   searchString: any;
@@ -34,14 +33,20 @@ export class AutosuggestComponent implements OnInit {
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.keyCode === 40) {
+      console.log(this.focusedIndex, this.sortedAutosuggestList.length);
       if (this.focusedIndex < this.sortedAutosuggestList.length - 1) {
         this.focusedIndex += 1;
+      } else if (this.focusedIndex === this.sortedAutosuggestList.length - 1) {
+        this.focusedIndex = 0;
       }
       this.scrollTo(this.focusedIndex);
     } else if (event.keyCode === 38) {
+      console.log('keyup');
       if (this.focusedIndex > 0) {
           this.focusedIndex -= 1;
-        }
+      } else if (this.focusedIndex === 0) {
+        this.focusedIndex = this.sortedAutosuggestList.length - 1;
+      }
       this.scrollTo(this.focusedIndex);
     } else if (event.keyCode === 13) {
       this.config.isOpened = false;
@@ -65,10 +70,11 @@ export class AutosuggestComponent implements OnInit {
   }
 
   onResize(ev) {
-
+    // TODO:- take action on window resize
   }
 
   setOptions(optionsList) {
+    const sortedArray = _.sortBy(optionsList, 'title');
     this.config.isOpened = true;
     const alreadyAddedCities = [];
     this.structuredOptionsForAutosuggest = [];
@@ -104,6 +110,7 @@ export class AutosuggestComponent implements OnInit {
     this.getList();
   }
 
+
   getList() {
     const list = [];
         for (let i = 0; i < this.structuredOptionsForAutosuggest.length; i++) {
@@ -135,9 +142,9 @@ export class AutosuggestComponent implements OnInit {
   initiateSearch(ev) {
     if (this.searchString && this.searchString.length > 0 && ev.keyCode !== 13) {
       const sortedList = [];
-      this.setOptions(this.list);
-      for (let i = 0; i < this.list.length; i++) {
-        const currentObj = this.list[i];
+      this.setOptions(this.autosuggestList);
+      for (let i = 0; i < this.autosuggestList.length; i++) {
+        const currentObj = this.autosuggestList[i];
         if (currentObj['CityName'].toLowerCase().indexOf(this.searchString) > -1
         || currentObj['Name'].toLowerCase().indexOf(this.searchString) > -1 ) {
           sortedList.push(currentObj);
@@ -149,10 +156,7 @@ export class AutosuggestComponent implements OnInit {
     }
   }
 
-  focusChild(parentIndex, childIndex) {
-    if (this.childFocused === `child-node-${parentIndex}-${childIndex}`) {
-      return 'focused-item';
-    }
-    return '';
+  hoverIn(index) {
+    this.focusedIndex = index;
   }
 }

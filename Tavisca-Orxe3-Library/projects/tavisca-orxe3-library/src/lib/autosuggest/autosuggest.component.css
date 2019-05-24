@@ -8,14 +8,11 @@
 .sub-span {
   padding-left: 32px !important;
 }
-/* .focused-item {
-  background: #0693c1;
-  color: #ffffff;
-} */
 
 .auto-suggest-items {
   max-height: 300px;
-  overflow-y: scroll;
+  overflow-y: auto;
+  border: 1px solid gray;
 }
 
 .option {
@@ -24,15 +21,14 @@
   font-size: 20px;
 }
 
-.option:hover {
-  background: #0693c1;
-  color: #ffffff;
+ul {
+  margin: 0;
+  padding: 0;
 }
 
-/* .option:hover .child-node-icon {
-  background: #0693c1;
-  color: #ffffff;
-} */
+ul li {
+  list-style: none;
+}
 
 .child {
   padding: 0 0 0 26px;
@@ -45,7 +41,14 @@
 .child-node-icon {
   color: darkgrey;
 }
-/*
-.child-node-icon:hover {
-  color: #ffffff;
+
+/* .cdk-overlay-pane {
+  border: 1px solid gray;
+  width: 545px;
+  font-size: 18px;
 } */
+
+.auto-suggest-picker {
+  width: 100%;
+  background: #ffffff;
+}
